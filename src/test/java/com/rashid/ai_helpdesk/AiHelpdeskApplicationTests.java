@@ -1,0 +1,13 @@
+package com.rashid.ai_helpdesk;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class AiHelpdeskApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

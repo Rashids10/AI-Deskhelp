@@ -68,8 +68,8 @@ Ein Task ist fertig, wenn:
 
 ## 🧠 Aufgabenverteilung (optional)
 
-- Backend: API, Datenbank, RAG, Docker
-- Frontend: UI, Angular Komponenten, User Flow
+- Backend: API, Datenbank, RAG, Docker --> Rashid
+- Frontend: UI, Angular Komponenten, User Flow --> Phillip
 
 ---
 

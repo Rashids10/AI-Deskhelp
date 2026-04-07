@@ -66,7 +66,7 @@ Ein Task ist fertig, wenn:
 
 ---
 
-## 🧠 Aufgabenverteilung (optional)
+## 🧠 Aufgabenverteilung
 
 - Backend: API, Datenbank, RAG, Docker --> Rashid
 - Frontend: UI, Angular Komponenten, User Flow --> Phillip

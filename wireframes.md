@@ -3,43 +3,43 @@
 ## Chat Screen (Main Interface)
 ```mermaid
 flowchart TB
-    subgraph CHAT[Chat Screen]
+    subgraph CHAT["Chat Screen"]
         direction TB
-        H[Header: AI-Deskhelp, user status, logout]
-        M[Message Pane<br/>- User bubbles<br/>- AI/RAG bubbles<br/>- Escalation banner]
-        I[Input Row<br/>- Text box<br/>- Send button<br/>- (optional) Attach]
-        F[Footer hints: "AI may escalate to human if unsure"]
+        H["Header: title, user status, logout"]
+        M["Messages: user bubbles, AI bubbles, escalation banner"]
+        I["Input row: text box, send button, attachment optional"]
+        F["Footer note: AI may escalate to human if unsure"]
         H --> M --> I
-        F -. static note .-> I
+        F -.-> I
     end
 ```
 
 ## Ticket Escalation Screen
 ```mermaid
 flowchart TB
-    subgraph TICKET[Ticket Escalation]
+    subgraph TICKET["Ticket Escalation"]
         direction TB
-        TH[Header: Ticket #123 • Status (Open/Pending/Closed)]
-        SUM[Summary Card<br/>- User question<br/>- Auto-captured context/FAQ snippets]
-        TL[Timeline<br/>- User msgs<br/>- AI attempts + confidence<br/>- Escalation event]
-        ACT[Actions<br/>- Add comment<br/>- Upload file<br/>- Mark resolved]
-        META[Meta<br/>- Priority<br/>- Assignee<br/>- SLA note]
+        TH["Header: ticket id and status"]
+        SUM["Summary: user question and FAQ context"]
+        TL["Timeline: user messages, AI attempts, escalation event"]
+        ACT["Actions: add comment, upload file, mark resolved"]
+        META["Meta: priority, assignee, SLA note"]
         TH --> SUM --> TL --> ACT
-        META -. side info .-> SUM
+        META -.-> SUM
     end
 ```
 
 ## Admin / Support Dashboard (Optional)
 ```mermaid
 flowchart TB
-    subgraph ADMIN[Admin / Support Dashboard]
+    subgraph ADMIN["Admin or Support Dashboard"]
         direction TB
-        FIL[Top Bar Filters<br/>- Status, Priority, Assignee, Search]
-        LIST[Ticket List Table<br/>- ID, User, Last Msg, Status, Age]
-        DETAIL[Ticket Detail Panel<br/>- Timeline<br/>- Context snippets<br/>- Reply box]
-        QUICK[Quick Actions<br/>- Assign self<br/>- Close ticket<br/>- Canned response]
-        FIL --> LIST -->|select ticket| DETAIL
-        QUICK -. shortcuts .-> DETAIL
+        FIL["Filters: status, priority, assignee, search"]
+        LIST["Ticket table: id, user, last message, status, age"]
+        DETAIL["Ticket detail: timeline, context snippets, reply box"]
+        QUICK["Quick actions: assign self, close ticket, canned response"]
+        FIL --> LIST --> DETAIL
+        QUICK -.-> DETAIL
     end
 ```
 

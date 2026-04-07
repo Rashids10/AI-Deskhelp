@@ -123,6 +123,17 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+
+<!-- Source: https://mvnrepository.com/artifact/org.mvnpm/react -->
+<dependency>
+    <groupId>org.mvnpm</groupId>
+    <artifactId>react</artifactId>
+    <version>19.2.4</version>
+    <scope>compile</scope>
+</dependency>
+
+			
 		</dependencies>
 	</dependencyManagement>
 

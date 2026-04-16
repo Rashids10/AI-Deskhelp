@@ -7,8 +7,8 @@ services:
     restart: always
     environment:
       POSTGRES_DB: ai_deskhelp
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: rashid
+      POSTGRES_PASSWORD: my-secret-pw
     ports:
       - "5432:5432"
     volumes:

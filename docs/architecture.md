@@ -32,3 +32,44 @@ flowchart LR
 ## Request & Escalation Flow
 - **Normal flow**: User asks → Chat UI → Backend API → RAG retrieves FAQ context → LLM generates answer with confidence → API stores message/logs in DB → response returned to Chat UI.
 - **Escalation flow**: If retrieval sparse or LLM confidence low → API creates ticket in DB → Human Support console handles it → human reply sent via API → Chat UI shows escalated answer and links ticket status.
+
+## Simple Request Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant FE as Frontend
+    participant C as Controller
+    participant S as Service
+    participant R as Repository
+    participant DB as Database
+    participant JWT as security.jwt
+
+    FE->>JWT: Send request with token
+    JWT->>JWT: Validate token
+    JWT-->>C: Allow authenticated request
+    C->>S: Call service logic
+    S->>R: Call repository
+    R->>DB: Read / write data
+    DB-->>R: Return result
+    R-->>S: Return data
+    S-->>C: Return response
+    C-->>FE: Send response
+```
+
+
+
+
+![alt text](<mermaid-diagram (1)-1.png>)
+
+## Architecture
+
+The application follows a simple layered architecture:
+
+- **Frontend / UI** sends requests
+- **Controller** handles HTTP endpoints
+- **Service** contains business logic
+- **Repository** manages database access
+- **Database** stores the data
+
+This keeps the project simple, clean, and scalable without overengineering.

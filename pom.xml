@@ -111,7 +111,27 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+	<dependencies>
 
+    <!-- Spring Web (Controller, REST, ResponseEntity) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+    <!-- Spring Security (AuthenticationManager, PasswordEncoder, etc.) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+</dependencies>
 <!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 <!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 <dependency>

@@ -1,5 +1,7 @@
 package com.rashid.ai_helpdesk.controller;
 
+import org.apache.catalina.connector.Response;
+
 import  com.rashid.ai_helpdesk.payload.request.SignUpRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rashid.ai_helpdesk.repository.UserRepository;
-import com.rashid.ai_helpdesk.service.User;
+import com.rashid.ai_helpdesk.service.UserService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
@@ -34,10 +36,10 @@ public class AuthController {
     PasswordEncoder encoder;
 
 
-    @PostMapping("/sign up")
+    @PostMapping("/signUp")
 
 
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signupReqeust){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
 
 
         if(userRepository.existsByEmail(signupReqeust.getEmail())){
@@ -51,13 +53,21 @@ public class AuthController {
 
         User user = new User(signupReqeust.getEmail(userEmail),
         encoder.encode(signupReqeust.getPassword()));
-    )
+    
     }
 
 
+        @PostMapping("/signIn")
+
+
+        public ResponseEntity<?> athenticateUser(@Valid SignUpRequest signUpRequest){
+            if (userRepository.existsByEmail(signUpRequest.getEmail(userEmail).))
+        }
+
+}
 
     
-}
+
 
 
 

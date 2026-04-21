@@ -27,8 +27,6 @@ public class SignUpRequest {
     private String passWord;
 
 
-
-
         public String getEmail(String userEmail) {
         return userEmail;
     }

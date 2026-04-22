@@ -33,9 +33,3 @@ volumes:
 
 
 
-
-Host: db
-Port: 5432
-Username: rashid
-Password: my-secret-pw
-Database: ai_deskhelp

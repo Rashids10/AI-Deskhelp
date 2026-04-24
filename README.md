@@ -19,7 +19,7 @@ AI-Deskhelp is a lightweight, AI-powered IT helpdesk that answers user questions
 ## Architecture Overview
 See `docs/architecture.md` for the Mermaid diagram and detailed component notes. The design uses a modular monolith backend to keep the MVP simple and buildable.
 
-## Tech Stack (suggested MVP)
+## Tech Stack ( MVP)
 - Frontend: React + TypeScript (Vite)
 - Backend: FastAPI (Python) or Express.js (Node) — pick one for the monolith
 - Database: PostgreSQL (SQLite acceptable for local dev)
@@ -41,6 +41,7 @@ See `docs/architecture.md` for the Mermaid diagram and detailed component notes.
 git clone <repo-url> && cd ai-helpdesk
 
 # 2) Backend (example with FastAPI)
+#still in progress
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload

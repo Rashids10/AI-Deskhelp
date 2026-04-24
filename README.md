@@ -63,3 +63,11 @@ Configure your LLM API key and DB connection string via environment variables (e
 - Add lightweight analytics (top queries, deflection rate).
 - Role-based access for agents vs. end-users.
 
+
+
+
+##Database-Scheme of the App
+
+
+![alt text](Untitled.png)
+

@@ -1,9 +1,11 @@
 package com.rashid.ai_helpdesk.backend.entity;
 
-import com.rashid.ai_helpdesk.backend.service.*;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,14 +22,29 @@ public class UserEntity {
     private Long id;
 
     @Column(nullable = false, length = 20)
-    private String username;
+    private String userName;
+
+
 
     @Email
-    @Column(nullable = false, unique = true)
+    @Column(name= "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 120)
+    @Column(name = "password_hash", nullable = false, length = 120)
     private String password;
+
+
+
+@Column(name = "created_at")
+private LocalDateTime createdAt;
+
+@Column(name = "updated_at")
+private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
+    private Erole role;
+
 
     public Long getId() {
         return id;
@@ -38,11 +55,11 @@ public class UserEntity {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
     public String getEmail() {
@@ -59,5 +76,17 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 }

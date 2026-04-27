@@ -12,6 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rashid.ai_helpdesk.backend.entity.UserEntity;
 import com.rashid.ai_helpdesk.backend.repository.UserRepository;
 
+
+/*
+
+Service, der von Spring Security verwendet wird,
+ um User beim Login aus der Datenbank zu laden
+ */ 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -21,15 +27,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByUsernameEmail(usernameOrEmail, usernameOrEmail)
+    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException(
-                        "User not found with username or email: " + usernameOrEmail));
+                        "User not found with username or email: " + userEmail));
 
         return new User(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
                 Collections.emptyList());
     }

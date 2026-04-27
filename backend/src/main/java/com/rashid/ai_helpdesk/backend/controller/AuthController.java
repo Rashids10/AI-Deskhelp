@@ -2,8 +2,6 @@ package com.rashid.ai_helpdesk.backend.controller;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +23,8 @@ import com.rashid.ai_helpdesk.backend.payload.response.JwtResponse;
 import com.rashid.ai_helpdesk.backend.payload.response.MessageResponse;
 import com.rashid.ai_helpdesk.backend.repository.UserRepository;
 import com.rashid.ai_helpdesk.backend.security.jwt.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -48,6 +48,8 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    @Operation(summary = "User register")
+
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
             return ResponseEntity.badRequest()

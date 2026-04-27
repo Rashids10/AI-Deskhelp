@@ -70,4 +70,3 @@ Configure your LLM API key and DB connection string via environment variables (e
 
 
 ![alt text](AI-Deskhelp-Database-scheme.png)
-

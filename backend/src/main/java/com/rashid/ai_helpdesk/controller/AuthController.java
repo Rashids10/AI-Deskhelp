@@ -79,19 +79,23 @@ public class AuthController {
                 .body(new MessageResponse("User registered successfully."));
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
+    @Operation(summary = "User anmelden", description = "Ermöglicht einem User, sich mit Email und Passwort einzuloggen")
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User erfolgreich eingeloggt"),
+    })
+
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
 
-
-            
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUserEmail(),
                             loginRequest.getPassword()));
 
-          UserEntity user = userRepository.findByEmail(loginRequest.getUserEmail())
-        .orElseThrow(() -> new RuntimeException("User not found."));
+            UserEntity user = userRepository.findByEmail(loginRequest.getUserEmail())
+                    .orElseThrow(() -> new RuntimeException("User not found."));
 
             String jwt = jwtUtils.generateJwtToken(authentication);
 

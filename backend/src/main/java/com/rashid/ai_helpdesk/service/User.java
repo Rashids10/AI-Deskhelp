@@ -2,16 +2,13 @@ package com.rashid.ai_helpdesk.service;
 
 import java.util.Collection;
 
-import org.hibernate.boot.internal.Extends;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Service
 public class User implements UserDetails {
+
     private Long id;
     private String username;
     private String email;
@@ -19,62 +16,36 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public User(Long id,
-            String username,
-            String email,
-            String password,
-            Collection<? extends GrantedAuthority> authorities) {
-
+                String username,
+                String email,
+                String password,
+                Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-
         this.username = username;
-
         this.email = email;
-
         this.password = password;
         this.authorities = authorities;
     }
 
     /*
-     * gibt User-Rollen zurück
-     * wird von Spring für Security benutzt
-     * entscheidet, was der User darf
-     * 
-     * 
+     * Gibt User-Rollen zurück.
+     * Wird von Spring Security benutzt,
+     * um zu entscheiden, was der User darf.
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return authorities;
-
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override
@@ -82,37 +53,32 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    /*
+     * Spring Security nutzt diesen Wert als Username.
+     * Wenn Login über Email läuft, kannst du hier email zurückgeben.
+     */
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
-
-    // check if account is expired
-
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    // check if account is locked
-
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    // check if password is expired
-
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    // check if user is active
-
     public boolean isEnabled() {
         return true;
     }
-
 }

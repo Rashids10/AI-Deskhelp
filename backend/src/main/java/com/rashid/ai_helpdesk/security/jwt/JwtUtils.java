@@ -17,6 +17,13 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+
+/*
+ * Verwaltet JWT-basierte Authentifizierung.
+ * - Generiert Tokens nach erfolgreichem Login
+ * - Validiert Tokens bei Requests
+ * - Extrahiert User-Informationen aus dem Token
+ */
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);

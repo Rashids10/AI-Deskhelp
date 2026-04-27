@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.service;
+package com.rashid.ai_helpdesk.service;
 
 public class TicketService {
 

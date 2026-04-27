@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.payload.request;
+package com.rashid.ai_helpdesk.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
 

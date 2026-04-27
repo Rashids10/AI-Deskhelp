@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.entity;
+package com.rashid.ai_helpdesk.entity;
 
 import java.time.LocalDateTime;
 

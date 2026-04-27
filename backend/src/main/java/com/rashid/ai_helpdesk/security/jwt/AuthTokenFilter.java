@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.security.jwt;
+package com.rashid.ai_helpdesk.security.jwt;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.rashid.ai_helpdesk.backend.service.UserDetailsServiceImpl;
+import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {

@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.security;
+package com.rashid.ai_helpdesk.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.rashid.ai_helpdesk.backend.security.jwt.AuthEntryPointJwt;
-import com.rashid.ai_helpdesk.backend.security.jwt.AuthTokenFilter;
-import com.rashid.ai_helpdesk.backend.service.UserDetailsServiceImpl;
+import com.rashid.ai_helpdesk.security.jwt.AuthEntryPointJwt;
+import com.rashid.ai_helpdesk.security.jwt.AuthTokenFilter;
+import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
 @Configuration
 public class SecurityConfig {

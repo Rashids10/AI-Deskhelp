@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.security.jwt;
+package com.rashid.ai_helpdesk.security.jwt;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.payload.response;
+package com.rashid.ai_helpdesk.payload.response;
 
 public class MessageResponse {
 

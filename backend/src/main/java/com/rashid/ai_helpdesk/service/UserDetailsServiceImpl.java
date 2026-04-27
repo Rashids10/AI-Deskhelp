@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.service;
+package com.rashid.ai_helpdesk.service;
 
 import java.util.Collections;
 
@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rashid.ai_helpdesk.backend.entity.UserEntity;
-import com.rashid.ai_helpdesk.backend.repository.UserRepository;
+import com.rashid.ai_helpdesk.entity.UserEntity;
+import com.rashid.ai_helpdesk.repository.UserRepository;
 
 
 /*

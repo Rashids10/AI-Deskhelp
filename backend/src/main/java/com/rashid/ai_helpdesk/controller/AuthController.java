@@ -1,4 +1,4 @@
-package com.rashid.ai_helpdesk.backend.controller;
+package com.rashid.ai_helpdesk.controller;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rashid.ai_helpdesk.backend.entity.UserEntity;
-import com.rashid.ai_helpdesk.backend.payload.request.LoginRequest;
-import com.rashid.ai_helpdesk.backend.payload.request.SignUpRequest;
-import com.rashid.ai_helpdesk.backend.payload.response.JwtResponse;
-import com.rashid.ai_helpdesk.backend.payload.response.MessageResponse;
-import com.rashid.ai_helpdesk.backend.repository.UserRepository;
-import com.rashid.ai_helpdesk.backend.security.jwt.JwtUtils;
+import com.rashid.ai_helpdesk.entity.UserEntity;
+import com.rashid.ai_helpdesk.payload.request.LoginRequest;
+import com.rashid.ai_helpdesk.payload.request.SignUpRequest;
+import com.rashid.ai_helpdesk.payload.response.JwtResponse;
+import com.rashid.ai_helpdesk.payload.response.MessageResponse;
+import com.rashid.ai_helpdesk.repository.UserRepository;
+import com.rashid.ai_helpdesk.security.jwt.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 

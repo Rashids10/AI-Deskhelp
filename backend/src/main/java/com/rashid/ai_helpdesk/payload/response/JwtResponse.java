@@ -4,8 +4,7 @@ import java.util.List;
 
 
 /*
-👉 JWT = digitaler Ausweis, den du nach Login bekommst und bei jeder Anfrage mitgibst
-
+JWT = digitaler Ausweis, den du nach Login bekommst und bei jeder Anfrage mitgibst
 
 */
 public class JwtResponse {

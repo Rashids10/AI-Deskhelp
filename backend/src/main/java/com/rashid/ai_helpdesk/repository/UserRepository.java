@@ -10,13 +10,13 @@ import com.rashid.ai_helpdesk.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    Boolean existsByUsername(String username);
+    boolean existsByUsername(String username);
 
-    Boolean existsByEmail(String email);
+    boolean existsByEmail(String email);
 
     Optional<UserEntity> findByUsername(String username);
 
     Optional<UserEntity> findByEmail(String email);
 
-    Optional<UserEntity> findByUsernameEmail(String email, String usernameOrEmail1);
+    Optional<UserEntity> findByUsernameOrEmail(String username, String email);
 }

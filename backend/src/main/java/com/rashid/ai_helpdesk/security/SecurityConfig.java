@@ -16,6 +16,15 @@ import com.rashid.ai_helpdesk.security.jwt.AuthEntryPointJwt;
 import com.rashid.ai_helpdesk.security.jwt.AuthTokenFilter;
 import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
+
+
+/*
+ * Zentrale Security-Konfiguration für die Anwendung.
+ * - Definiert, welche Endpoints öffentlich sind
+ * - Aktiviert JWT-basierte Authentifizierung
+ * - Konfiguriert AuthenticationManager und PasswordEncoder
+ */
+
 @Configuration
 public class SecurityConfig {
 
@@ -41,10 +50,13 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html")
+                                "/swagger-ui.html",
+                            "/api/auth", "/api/auth/**",
+                        "/error")
                         .permitAll()
                         .anyRequest()
-                        .authenticated());
+                        .authenticated())
+                        ;
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);

@@ -23,7 +23,10 @@ import com.rashid.ai_helpdesk.payload.response.JwtResponse;
 import com.rashid.ai_helpdesk.payload.response.MessageResponse;
 import com.rashid.ai_helpdesk.repository.UserRepository;
 import com.rashid.ai_helpdesk.security.jwt.JwtUtils;
+
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
@@ -38,9 +41,9 @@ public class AuthController {
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
-                          UserRepository userRepository,
-                          PasswordEncoder passwordEncoder,
-                          JwtUtils jwtUtils) {
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -48,8 +51,12 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    @Operation(summary = "User register")
+    @Operation(summary = "Registriert einen neuen User", description = "Erstellt einen neuen Account mit Email, Username und Passwort")
 
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User erfolgreich registriert"),
+            @ApiResponse(responseCode = "400", description = "Ungültige Eingaben")
+    })
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
             return ResponseEntity.badRequest()
@@ -72,17 +79,22 @@ public class AuthController {
                 .body(new MessageResponse("User registered successfully."));
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
+    @Operation(summary = "User anmelden", description = "Ermöglicht einem User, sich mit Email und Passwort einzuloggen")
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User erfolgreich eingeloggt"),
+    })
+
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
+
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsernameOrEmail(),
+                            loginRequest.getUserEmail(),
                             loginRequest.getPassword()));
 
-            UserEntity user = userRepository.findByUsernameEmail(
-                            loginRequest.getUsernameOrEmail(),
-                            loginRequest.getUsernameOrEmail())
+            UserEntity user = userRepository.findByEmail(loginRequest.getUserEmail())
                     .orElseThrow(() -> new RuntimeException("User not found."));
 
             String jwt = jwtUtils.generateJwtToken(authentication);

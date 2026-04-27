@@ -2,11 +2,6 @@ package com.rashid.ai_helpdesk.security.jwt;
 
 import java.io.IOException;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +15,30 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+/*
+
+Request →
+JWT im Header →
+AuthTokenFilter →
+Token valid? →
+User laden →
+Authentication setzen →
+Controller Zugriff erlauben
+
+
+alles in allem TÜr steher für die API
+
+
+*/
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
-
+    private static final Logger log = LoggerFactory.getLogger(AuthTokenFilter.class);
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -49,7 +63,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e.getMessage());
+            logger.error("Cannot set user authentication: {}" + e.getMessage());
         }
 
         filterChain.doFilter(request, response);
@@ -64,4 +78,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         return null;
     }
+
+
 }

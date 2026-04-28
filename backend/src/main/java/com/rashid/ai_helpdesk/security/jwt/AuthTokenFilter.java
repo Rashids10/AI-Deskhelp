@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.rashid.ai_helpdesk.service.UserDetailsImpl;
+import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,7 +43,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private UserDetailsImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -63,7 +63,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}" + e.getMessage());
+            log.error("Cannot set user authentication: {}", e.getMessage());
         }
 
         filterChain.doFilter(request, response);
@@ -78,6 +78,4 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         return null;
     }
-
-
 }

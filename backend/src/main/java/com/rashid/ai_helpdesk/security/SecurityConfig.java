@@ -14,9 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.rashid.ai_helpdesk.security.jwt.AuthEntryPointJwt;
 import com.rashid.ai_helpdesk.security.jwt.AuthTokenFilter;
-import com.rashid.ai_helpdesk.service.UserDetailsImpl;
-
-
+import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
 /*
  * Zentrale Security-Konfiguration für die Anwendung.
@@ -29,12 +27,12 @@ import com.rashid.ai_helpdesk.service.UserDetailsImpl;
 public class SecurityConfig {
 
     private final AuthEntryPointJwt unauthorizedHandler;
-    private final UserDetailsImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final AuthTokenFilter authTokenFilter;
 
     public SecurityConfig(AuthEntryPointJwt unauthorizedHandler,
-                          UserDetailsImpl userDetailsService,
-                          AuthTokenFilter authTokenFilter) {
+            UserDetailsServiceImpl userDetailsService,
+            AuthTokenFilter authTokenFilter) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.userDetailsService = userDetailsService;
         this.authTokenFilter = authTokenFilter;
@@ -51,12 +49,10 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                            "/api/auth", "/api/auth/**",
-                        "/error")
+                                "/error")
                         .permitAll()
                         .anyRequest()
-                        .authenticated())
-                        ;
+                        .authenticated());
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);

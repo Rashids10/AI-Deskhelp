@@ -1,8 +1,5 @@
 package com.rashid.ai_helpdesk.service;
 
-import java.util.Collections;
-
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,18 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rashid.ai_helpdesk.entity.UserEntity;
 import com.rashid.ai_helpdesk.repository.UserRepository;
+import com.rashid.ai_helpdesk.security.jwt.UserDetailsImpl;
 
-/*
-
-Service, der von Spring Security verwendet wird,
- um User beim Login aus der Datenbank zu laden
- */
 @Service
-public class UserDetailsImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public UserDetailsImpl(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -31,14 +24,8 @@ public class UserDetailsImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException(
-                        "User not found with username or email: " + userEmail));
+                        "User not found with email: " + userEmail));
 
-        return new User(
-                user.getEmail(),
-                user.getPassword(),
-                Collections.emptyList());
+        return new UserDetailsImpl(user);
     }
-
-
-
 }

@@ -18,11 +18,11 @@ Service, der von Spring Security verwendet wird,
  um User beim Login aus der Datenbank zu laden
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public UserDetailsImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -38,4 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getPassword(),
                 Collections.emptyList());
     }
+
+
+
 }

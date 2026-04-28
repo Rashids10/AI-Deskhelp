@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.rashid.ai_helpdesk.security.jwt.AuthEntryPointJwt;
 import com.rashid.ai_helpdesk.security.jwt.AuthTokenFilter;
-import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
+import com.rashid.ai_helpdesk.service.UserDetailsImpl;
 
 
 
@@ -29,11 +29,11 @@ import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 public class SecurityConfig {
 
     private final AuthEntryPointJwt unauthorizedHandler;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsImpl userDetailsService;
     private final AuthTokenFilter authTokenFilter;
 
     public SecurityConfig(AuthEntryPointJwt unauthorizedHandler,
-                          UserDetailsServiceImpl userDetailsService,
+                          UserDetailsImpl userDetailsService,
                           AuthTokenFilter authTokenFilter) {
         this.unauthorizedHandler = unauthorizedHandler;
         this.userDetailsService = userDetailsService;

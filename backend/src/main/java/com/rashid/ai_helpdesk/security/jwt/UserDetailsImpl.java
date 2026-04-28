@@ -10,6 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rashid.ai_helpdesk.entity.UserEntity;
 
+
+/*
+Diese Klasse repräsentiert den authentifizierten Benutzer für Spring Security.
+Sie implementiert das Interface UserDetails und 
+stellt alle nötigen Informationen bereit, die Spring für Login, JWT und Autorisierung benötigt.
+*/
+
 public class UserDetailsImpl implements UserDetails {
 
     private final Long id;
@@ -46,7 +53,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.rashid.ai_helpdesk.controller;
 
 import java.util.List;
+import  com.rashid.ai_helpdesk.security.jwt.UserDetailsImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,86 +32,100 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
+import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
+
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtils jwtUtils;
+        private final AuthenticationManager authenticationManager;
+        private final UserRepository userRepository;
+        private final JwtUtils jwtUtils;
 
-    @Autowired
-    public AuthController(AuthenticationManager authenticationManager,
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder,
-            JwtUtils jwtUtils) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtils = jwtUtils;
-    }
+        private final UserDetailsServiceImpl userDetailsService;
+        private final UserDetails userDetails;
 
-    @PostMapping("/signup")
-    @Operation(summary = "Registriert einen neuen User", description = "Erstellt einen neuen Account mit Email, Username und Passwort")
-
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "User erfolgreich registriert"),
-            @ApiResponse(responseCode = "400", description = "Ungültige Eingaben")
-    })
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
-            return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Username is already taken."));
+        @Autowired
+        public AuthController(
+                        UserDetails userDetails,
+                        AuthenticationManager authenticationManager,
+                        UserRepository userRepository,
+                        JwtUtils jwtUtils,
+                        UserDetailsServiceImpl userDetailsService) {
+                this.userDetails = userDetails;
+                this.authenticationManager = authenticationManager;
+                this.userRepository = userRepository;
+                this.jwtUtils = jwtUtils;
+                this.userDetailsService = userDetailsService;
         }
 
-        if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
-            return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Email is already in use."));
+        @Autowired
+        public AuthController(AuthenticationManager authenticationManager,
+                        UserRepository userRepository,
+                        PasswordEncoder passwordEncoder,
+                        JwtUtils jwtUtils,
+                        UserDetailsService userDetailsService) {
+                this.authenticationManager = authenticationManager;
+                this.userRepository = userRepository;
+                this.jwtUtils = jwtUtils;
         }
 
-        UserEntity user = new UserEntity();
-        user.setUsername(signUpRequest.getUsername());
-        user.setEmail(signUpRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        @PostMapping("/signup")
+        @Operation(summary = "Registriert einen neuen User", description = "Erstellt einen neuen Account mit Email, Username und Passwort")
 
-        userRepository.save(user);
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "User erfolgreich registriert"),
+                        @ApiResponse(responseCode = "400", description = "Ungültige Eingaben")
+        })
+        public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new MessageResponse("User registered successfully."));
-    }
+                if (Boolean.TRUE.equals(userDetailsService.assureEmailExists(signUpRequest.getEmail()))) {
+                        return ResponseEntity.badRequest()
+                                        .body(new MessageResponse("Email is already in use."));
+                }
 
-    @PostMapping("/login")
-    @Operation(summary = "User anmelden", description = "Ermöglicht einem User, sich mit Email und Passwort einzuloggen")
+                userDetailsService.createUser(
+                                signUpRequest.getEmail(),
+                                signUpRequest.getUsername(),
+                                signUpRequest.getPassword());
 
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "User erfolgreich eingeloggt"),
-    })
-
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        try {
-
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUserEmail(),
-                            loginRequest.getPassword()));
-
-            UserEntity user = userRepository.findByEmail(loginRequest.getUserEmail())
-                    .orElseThrow(() -> new RuntimeException("User not found."));
-
-            String jwt = jwtUtils.generateJwtToken(authentication);
-
-            return ResponseEntity.ok(
-                    new JwtResponse(
-                            jwt,
-                            user.getId(),
-                            user.getUsername(),
-                            user.getEmail(),
-                            List.of("ROLE_USER")));
-        } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new MessageResponse("Invalid username/email or password."));
+                return ResponseEntity.status(HttpStatus.CREATED)
+                                .body(new MessageResponse("User registered successfully."));
         }
-    }
+
+        @PostMapping("/login")
+        @Operation(summary = "User anmelden", description = "Ermöglicht einem User, sich mit Email und Passwort einzuloggen")
+
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "User erfolgreich eingeloggt"),
+        })
+
+        public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+                try {
+
+                        Authentication authentication = authenticationManager.authenticate(
+                                        new UsernamePasswordAuthenticationToken(
+                                                        loginRequest.getUserEmail(),
+                                                        loginRequest.getPassword()));
+
+                        if (!Boolean.TRUE.equals(userDetailsService.assureEmailExists(loginRequest.getUserEmail()))) {
+                                return ResponseEntity.badRequest()
+                                                .body(new MessageResponse("Email not found!"));
+                        }
+
+                        String jwt = jwtUtils.generateJwtToken(authentication);
+
+                        return ResponseEntity.ok(
+                                        new JwtResponse(
+                                                        jwt,
+                                                        userDetails.getId(),
+                                                        userDetails.getUsername(),
+                                                        userDetails.getemail(),
+                                                        List.of("ROLE_USER")));
+                } catch (AuthenticationException ex) {
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                        .body(new MessageResponse("Invalid username/email or password."));
+                }
+        }
 }

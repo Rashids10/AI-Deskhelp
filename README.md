@@ -53,12 +53,10 @@ git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
 cd backend
 ./mvnw spring-boot:run
 
-
-
-
-
 ```
+
 ##  Backend (example with FastAPI) -> please ignore  this step now
+```bash
 
 #still in progress ,so now please ignore  this step now
 ```
@@ -85,6 +83,7 @@ http://localhost:8089/swagger-ui/index.html
 ```
 
 ## API-Docs
+
 ```bash
 http://localhost:8089/v3/api-docs
 ```

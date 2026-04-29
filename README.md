@@ -37,14 +37,37 @@ See `docs/architecture.md` for the Mermaid diagram and detailed component notes.
 
 ## Setup (local, minimal)
 
+
+## Start Spring Boot Backend
+
+### Prerequisites
+- Java 21
+- Maven Wrapper
+- PostgreSQL running locally
+- Database: `ai_deskhelp`
+
+### Run the backend
+```bash
+cd backend
+./mvnw spring-boot:run
+
+#### Run the the backend
+
+```bash
+
+
+
+```
+
+
 ```bash
 git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
 ```
 
-
+```
 ##  Backend (example with FastAPI) -> please ignore  this step now
-#still in progress
 
+#still in progress ,so now please ignore  this step now
 ```
 
 ## Docker Starten

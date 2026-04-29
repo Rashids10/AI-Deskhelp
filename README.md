@@ -35,7 +35,7 @@ See `docs/architecture.md` for the Mermaid diagram and detailed component notes.
 6. If low confidence/no context: API creates a ticket, notifies Human Support, and returns an escalated status to the user.
 7. Human Support replies via the console; the response is delivered back to the user through the same chat.
 
-## Setup (local, minimal)
+## Setup
 
 ```bash
 git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk

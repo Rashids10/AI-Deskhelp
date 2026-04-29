@@ -36,22 +36,26 @@ See `docs/architecture.md` for the Mermaid diagram and detailed component notes.
 7. Human Support replies via the console; the response is delivered back to the user through the same chat.
 
 ## Setup (local, minimal)
-```bash
-# 1) Clone
-git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
 
-# 2) Backend (example with FastAPI)
+```bash
+git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
+```
+
+
+##  Backend (example with FastAPI) -> please ignore  this step now
 #still in progress
 
 ```
+
 ## Docker Starten
 
 ```bash
-> cd infra/docker-compose&&docker compose up
+cd infra/docker-compose&&docker compose up
 ```
 
 ## Spring-boot-App starten
 ```bash
+
 cd backend
 ./mvnw spring-boot:run
 

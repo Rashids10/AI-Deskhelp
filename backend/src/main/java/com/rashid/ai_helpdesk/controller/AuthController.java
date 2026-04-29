@@ -26,11 +26,14 @@ import com.rashid.ai_helpdesk.payload.response.JwtResponse;
 import com.rashid.ai_helpdesk.payload.response.MessageResponse;
 import com.rashid.ai_helpdesk.repository.UserRepository;
 import com.rashid.ai_helpdesk.security.jwt.JwtUtils;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+
+
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+String currentPrincipalName = authentication.getName();
 
 import com.rashid.ai_helpdesk.service.UserDetailsServiceImpl;
 
@@ -128,4 +131,34 @@ public class AuthController {
                                         .body(new MessageResponse("Invalid username/email or password."));
                 }
         }
-}
+
+            @DeleteMapping("/deletemyAccount")
+            @Operation(summary = "löscht user seinen Accountr", description = "hiermit kann der User sein Account löschen")
+
+        public ResponseEntity<?> deleteUser(@AuthenticationPrincipal UserDetailsImpl user){
+                
+                String userEmail = user.getEmail();
+                userDetailsService.deleteUserByEmail(userByEmail);
+        
+      /*do { 
+           UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();        
+        String userEmail = user.getEmail();
+        userDetailsService.deleteUserByEmail(userByEmail);
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                  UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();        
+        String userEmail = user.getEmail();
+        userDetailsService.deleteUserByEmail(userByEmail);
+
+      } ; */
+
+          return ResponseEntity.ok(HttpStatus.CREATED)
+                                .body(new MessageResponse("Your account  deleted Succesfully"));
+                                
+
+                                /*
+                                dann hier musst du der User zu login seite redirecten das kommt noch 
+                                 */
+        }
+            }
+
+

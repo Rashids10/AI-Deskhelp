@@ -77,7 +77,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public void deleteUser(String email) {
+    public void deleteUserByEmail(String email) {
 
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));

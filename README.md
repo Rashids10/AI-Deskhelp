@@ -50,7 +50,7 @@ git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
 > cd infra/docker-compose&&docker compose up
 ```
 
-##Spring-boot-App starten
+## Spring-boot-App starten
 ```bash
 cd backend
 ./mvnw spring-boot:run

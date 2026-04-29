@@ -54,7 +54,6 @@ cd backend
 ./mvnw spring-boot:run
 
 ```
-
 ##  Backend (example with FastAPI) -> please ignore  this step now
 ```bash
 

@@ -31,6 +31,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+
+
 
 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 String currentPrincipalName = authentication.getName();
@@ -140,7 +144,7 @@ public class AuthController {
                 String userEmail = user.getEmail();
                 Long userId= user.getId();
                 userDetailsService.deleteUserByEmail(userByEmail);
-               boolean assureUserIsDeleted = userDetailsService.deleteById(userId)
+               boolean assureUserIsDeleted = userDetailsService.deleteById(userId);
         
       /*  { 
            UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();        
@@ -153,7 +157,7 @@ public class AuthController {
 
       } ; */
 
-      if(Boolean.TRUE.equal(assureUserIsDeleted)){
+      if(Boolean.TRUE.equals(user)(assureUserIsDeleted)){
         return ResponseEntity.ok(HttpStatus.CREATED)
                                 .body(new MessageResponse("Your account  deleted Succesfully"));
 

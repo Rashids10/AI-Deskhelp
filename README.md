@@ -38,19 +38,31 @@ See `docs/architecture.md` for the Mermaid diagram and detailed component notes.
 ## Setup (local, minimal)
 ```bash
 # 1) Clone
-git clone <repo-url> && cd ai-helpdesk
+git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
 
 # 2) Backend (example with FastAPI)
 #still in progress
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
 
+```
+## Docker Straten
+
+```bash
+> cd infra/docker-compose&&docker compose up
+```
+
+##Spring-boot-App starten
+```bash
+cd backend
+./mvnw spring-boot:run
+
+```
+
+
+```bash
 # 3) Frontend
 npm install
 npm run dev
 ```
-Configure your LLM API key and DB connection string via environment variables (e.g., `.env`).
 
 ## Example Use Case
 - Scenario: User asks, “How do I reset my VPN password?”

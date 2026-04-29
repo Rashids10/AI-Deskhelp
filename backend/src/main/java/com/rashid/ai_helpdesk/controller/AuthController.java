@@ -138,9 +138,11 @@ public class AuthController {
         public ResponseEntity<?> deleteUser(@AuthenticationPrincipal UserDetailsImpl user){
                 
                 String userEmail = user.getEmail();
+                Long userId= user.getId();
                 userDetailsService.deleteUserByEmail(userByEmail);
+               boolean assureUserIsDeleted = userDetailsService.deleteById(userId)
         
-      /*do { 
+      /*  { 
            UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();        
         String userEmail = user.getEmail();
         userDetailsService.deleteUserByEmail(userByEmail);
@@ -151,10 +153,11 @@ public class AuthController {
 
       } ; */
 
-          return ResponseEntity.ok(HttpStatus.CREATED)
+      if(Boolean.TRUE.equal(assureUserIsDeleted)){
+        return ResponseEntity.ok(HttpStatus.CREATED)
                                 .body(new MessageResponse("Your account  deleted Succesfully"));
-                                
 
+      }
                                 /*
                                 dann hier musst du der User zu login seite redirecten das kommt noch 
                                  */

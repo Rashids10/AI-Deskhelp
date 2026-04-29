@@ -132,4 +132,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     return userRepository.existsByEmail(email);
 }
 
+    public boolean deleteById(Long userId){
+
+
+    UserEntity user = findUserById(userId);
+    userRepository.deleteById(userId);
+
+
+    if(userRepository.de(user.getId())){
+         return true;
+    }
+    return false;
+
+   
+
+
 }
+    
+   }
+
+

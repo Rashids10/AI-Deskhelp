@@ -44,7 +44,7 @@ git clone https://github.com/Rashids10/AI-Deskhelp.git && cd ai-helpdesk
 #still in progress
 
 ```
-## Docker Straten
+## Docker Starten
 
 ```bash
 > cd infra/docker-compose&&docker compose up
@@ -56,6 +56,23 @@ cd backend
 ./mvnw spring-boot:run
 
 ```
+
+## Api-Testen
+```bash
+http://localhost:8089/swagger-ui/index.html
+
+```
+
+## API Docs
+```bash
+http://localhost:8089/v3/api-docs
+```
+
+
+
+
+
+
 
 
 ```bash

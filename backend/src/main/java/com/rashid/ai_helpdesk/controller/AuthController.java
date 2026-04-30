@@ -45,6 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    @Operation(summary = "Registriert einen neuen User", description = "Erstellt einen neuen Account mit Email, Username und Passwort")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userDetailsService.assureEmailExists(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Email is already in use."));
@@ -60,6 +61,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "User anmelden", description = "Ermöglicht einem User, sich mit Email und Passwort einzuloggen")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -84,6 +86,10 @@ public class AuthController {
     }
 
     @DeleteMapping("/deletemyAccount")
+    @Operation(
+    summary = "Eigenen Account löschen",
+    description = "Ermöglicht es dem authentifizierten Benutzer, seinen eigenen Account dauerhaft zu löschen."
+)
     public ResponseEntity<?> deleteUser(@AuthenticationPrincipal UserDetailsImpl user) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -93,13 +99,13 @@ public class AuthController {
         boolean deleted = userDetailsService.deleteById(user.getId());
 
         if (deleted) {
-            return ResponseEntity.ok(new MessageResponse("Your account was deleted successfully."));
-
-
-            /*
+                    /*
 
             später kannst du noch dazu zu loggout redirecten
              */
+            return ResponseEntity.ok(new MessageResponse("Your account was deleted successfully."));
+
+
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)

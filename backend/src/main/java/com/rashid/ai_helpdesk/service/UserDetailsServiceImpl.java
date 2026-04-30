@@ -101,11 +101,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public boolean deleteById(Long userId) {
-        if (!userRepository.existsById(userId)) {
-            return false;
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+
+            return true;
         }
 
-        userRepository.deleteById(userId);
-        return !userRepository.existsById(userId);
+    return false;
     }
 }
